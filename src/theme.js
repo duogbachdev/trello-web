@@ -12,7 +12,7 @@ const theme = extendTheme({
         primary: {
           main: '#ff5252'
         }
-      },
+      }
     },
     dark: {
       palette: {
@@ -23,6 +23,6 @@ const theme = extendTheme({
     }
   }
   // ...other properties
-});
+})
 
-export default theme;
+export default theme
