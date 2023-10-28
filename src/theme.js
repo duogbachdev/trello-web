@@ -1,23 +1,24 @@
+import { cyan, red, teal } from '@mui/material/colors'
 import { experimental_extendTheme as extendTheme } from '@mui/material/styles'
 
 // Create a theme instance.
 const theme = extendTheme({
   trelloCustom: {
-    appBarHeight: '48px',
-    boardBarHeight: '58px'
+    appBarHeight: '58px',
+    boardBarHeight: '60px'
   },
   colorSchemes: {
     light: {
       palette: {
         primary: {
-          main: '#ff5252'
+          main: teal[400]
         }
       }
     },
     dark: {
       palette: {
         primary: {
-          main: '#000'
+          main: cyan[400]
         }
       }
     }
