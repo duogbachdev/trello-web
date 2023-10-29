@@ -1,6 +1,6 @@
 import React from 'react'
-import { Avatar, Box, Button, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material'
-import { Check, Logout, PersonAdd, Settings } from '@mui/icons-material'
+import { Avatar, Box, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material'
+import { Logout, PersonAdd, Settings } from '@mui/icons-material'
 
 
 const Profiles = () => {
@@ -25,8 +25,8 @@ const Profiles = () => {
         >
           <Avatar
             sx={{
-              width: 32,
-              height: 32
+              width: 34,
+              height: 34
             }}
             alt='duogbachdev'
             src='https://avatars.githubusercontent.com/u/136550117?v=4'
