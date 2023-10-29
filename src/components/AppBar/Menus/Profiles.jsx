@@ -25,8 +25,8 @@ const Profiles = () => {
         >
           <Avatar
             sx={{
-              width: 34,
-              height: 34
+              width: 36,
+              height: 36
             }}
             alt='duogbachdev'
             src='https://avatars.githubusercontent.com/u/136550117?v=4'
