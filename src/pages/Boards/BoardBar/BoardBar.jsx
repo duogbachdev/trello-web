@@ -5,6 +5,7 @@ import AddToDriveIcon from '@mui/icons-material/AddToDrive'
 import BoltIcon from '@mui/icons-material/Bolt'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
+import { capitalizeFirstLetter } from '~/utils/formatter'
 
 const MENU_STYLES = {
   color: 'white',
@@ -20,7 +21,9 @@ const MENU_STYLES = {
   }
 }
 
-const BoardBar = () => {
+const BoardBar = ({ board }) => {
+  // const { board } = props
+  // Or : const board = props.board
   return (
     <Box sx={{
       width: '100%',
@@ -41,14 +44,14 @@ const BoardBar = () => {
         <Chip
           sx={MENU_STYLES}
           icon={<DashboardIcon />}
-          label="duogbachdev MERN Stack"
+          label={board?.title}
           clickable
           // onClick={()=>{}}
         />
         <Chip
           sx={MENU_STYLES}
           icon={<VpnLockIcon />}
-          label="Public/Private Workspace"
+          label={capitalizeFirstLetter(board?.type)}
           clickable
           // onClick={()=>{}}
         />
