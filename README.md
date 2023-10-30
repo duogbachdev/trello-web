@@ -1,4 +1,4 @@
-### Bộ code base để bắt đầu học khóa MERN Stack Pro
+### Bộ code base để bắt đầu học MERN Stack Pro
 
 ### Requirements - Thông tin của bộ Code Base này - Chuẩn các phiên bản dưới đây để bắt đầu học: (Semantic Versioning)
 
@@ -23,7 +23,7 @@
 
 ### About Me - Thông tin về mình:
 
-Author: **duogbachdev**
+Author: **DuogBachDev**
 
 Blog: 
 
