@@ -1,9 +1,16 @@
 import { Box } from '@mui/material'
 import ListColumns from './ListColumns/ListColumns'
 import { mapOrder } from '~/utils/sorts'
-import { DndContext, useSensor, useSensors, MouseSensor, TouchSensor } from '@dnd-kit/core'
+import { DndContext, useSensor, useSensors, MouseSensor, TouchSensor, DragOverlay, defaultDropAnimationSideEffects } from '@dnd-kit/core'
 import { useEffect, useState } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
+import Column from './ListColumns/Column/Column'
+import Card from './ListColumns/Column/ListCards/Card/Card'
+
+const ACTIVE_DRAG_ITEM_TYPE = {
+  COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
+  CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
+}
 
 const BoardContent = ({ board }) => {
   // const pointerSensor = useSensor(PointerSensor, { activationConstraint: { distance: 10 } })
@@ -14,10 +21,24 @@ const BoardContent = ({ board }) => {
 
 
   const [orderedColumnsState, setOrderedColumnsState] = useState([])
+
+  // Cùng một thời điểm chỉ có một phần tử đang được kéo ( columns or cards )
+  const [activeDragItemId, setActiveDragItemId] = useState(null)
+  const [activeDragItemType, setActiveDragItemType] = useState(null)
+  const [activeDragItemData, setActiveDragItemData] = useState(null)
+
   useEffect(() => {
     const orderedColumns = mapOrder(board?.columns, board?.columnOrderIds, '_id')
     setOrderedColumnsState(orderedColumns)
   }, [board])
+
+  const handleDragStart = (event) => {
+    // console.log('handleDragStart', event)
+    setActiveDragItemId(event?.active?.id)
+    setActiveDragItemType(event?.active?.data?.current?.columnId ? ACTIVE_DRAG_ITEM_TYPE.CARD : ACTIVE_DRAG_ITEM_TYPE.COLUMN)
+    setActiveDragItemData(event?.active?.data?.current)
+  }
+
   const handleDragEnd = (event) => {
     // console.log('handleDragEnd', event)
     const { active, over } = event
@@ -41,9 +62,31 @@ const BoardContent = ({ board }) => {
 
       setOrderedColumnsState(dndOrderedColumnsState)
     }
+
+    setActiveDragItemId(null)
+    setActiveDragItemType(null)
+    setActiveDragItemData(null)
   }
+
+  const customDropAnimation = {
+    sideEffects: defaultDropAnimationSideEffects({
+      styles: {
+        active: {
+          opacity: '0.5'
+        }
+      }
+    })
+  }
+
+  // console.log('activeDragItemId', activeDragItemId)
+  // console.log('activeDragItemType', activeDragItemType)
+  // console.log('activeDragItemData', activeDragItemData)
   return (
-    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+    <DndContext
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
       <Box sx={{
         width: '100%',
         height: (theme) => theme.trelloCustom.boardContentHeight,
@@ -52,6 +95,16 @@ const BoardContent = ({ board }) => {
         p: '10px 0'
       }}>
         <ListColumns columns={orderedColumnsState}/>
+        <DragOverlay dropAnimation={customDropAnimation}>
+          {(!activeDragItemId || !activeDragItemType) && null}
+          {(activeDragItemId && activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) &&
+            <Column column={activeDragItemData}/>
+          }
+          {(!activeDragItemId || !activeDragItemType) && null}
+          {(activeDragItemId && activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD) &&
+            <Card card={activeDragItemData}/>
+          }
+        </DragOverlay>
       </Box>
     </DndContext>
   )
