@@ -1,4 +1,5 @@
-import { Box, Button, InputAdornment, TextField } from '@mui/material'
+import { Box, Button, TextField } from '@mui/material'
+import { toast } from 'react-toastify'
 import Column from './Column/Column'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
@@ -13,6 +14,16 @@ const ListColumns = ({ columns }) => {
   const [newColumnTitle, setNewColumnTitle] = useState('')
   const addNewColumn = () => {
     if (!newColumnTitle) {
+      toast.error('Please entern a title', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
       return
     }
 

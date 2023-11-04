@@ -10,6 +10,7 @@ import { mapOrder } from '~/utils/sorts'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import CloseIcon from '@mui/icons-material/Close'
+import { toast } from 'react-toastify'
 
 const Column = ({ column }) => {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -25,6 +26,16 @@ const Column = ({ column }) => {
   const [newCardTitle, setNewCardTitle] = useState('')
   const addNewCard = () => {
     if (!newCardTitle) {
+      toast.error('Please entern a title', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
       return
     }
 
