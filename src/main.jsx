@@ -5,11 +5,16 @@ import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/s
 import theme from '~/theme'
 import App from '~/App.jsx'
 
+// Cấu hình react-toastify
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <CssVarsProvider theme={theme}>
-      <CssBaseline/>
-      <App />
-    </CssVarsProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <CssVarsProvider theme={theme}>
+    <CssBaseline/>
+    <App />
+    <ToastContainer />
+  </CssVarsProvider>
+  //</React.StrictMode>
 )
