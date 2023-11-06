@@ -7,14 +7,14 @@ import { useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 
 
-const ListColumns = ({ columns }) => {
+const ListColumns = ({ columns, createNewColumn, createNewCard }) => {
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
   const toggleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm)
 
   const [newColumnTitle, setNewColumnTitle] = useState('')
-  const addNewColumn = () => {
+  const addNewColumn = async () => {
     if (!newColumnTitle) {
-      toast.error('Please entern a title', {
+      toast.error('Please entern a columns', {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -27,8 +27,12 @@ const ListColumns = ({ columns }) => {
       return
     }
 
+    // Tạo dữ liệu columns để gọi API
+    const newColumnData = {
+      title: newColumnTitle
+    }
     // Gọi API ở đây
-
+    await createNewColumn(newColumnData)
     // Đóng trạng thái thêm Column mới & Clear Input
     toggleOpenNewColumnForm()
     setNewColumnTitle('')
@@ -47,7 +51,7 @@ const ListColumns = ({ columns }) => {
           m: 2
         }
       }}>
-        {columns?.map(column => <Column key={column._id} column={column}/>)}
+        {columns?.map(column => <Column key={column._id} column={column} createNewCard={createNewCard}/>)}
 
         {/* Box Add new column */}
         {!openNewColumnForm
